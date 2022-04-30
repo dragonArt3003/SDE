@@ -1,3 +1,0 @@
-Hello this is to test pull.
-pull : remote -> local worked.
-Testing: push request fail case.
