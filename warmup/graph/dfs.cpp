@@ -40,21 +40,21 @@ void dfsUtil(std::vector<std::vector<int>> &adj_list, std::vector<bool> &visited
 
     visited[src] = true;
     st.push(src);
-
+    res.push_back(src);
     while (!st.empty()) {
         int u = st.top();
 
         // poping condition: when all the adjacents are processed 
-        // remove the current vertex from the stack and add int resultant vector
+        // remove the current vertex from the stack
 
         if (index[u] == adj_list[u].size()) {
-            res.push_back(u);
             st.pop();
         }
         else {
             int ind = (index[u])++;
             int v = adj_list[u][ind];
             if (visited[v] == false) {
+                res.push_back(v);       // pushing at very first visit or discovery.
                 parent[v] = u;
                 st.push(v);
                 visited[v] = true;
@@ -65,7 +65,7 @@ void dfsUtil(std::vector<std::vector<int>> &adj_list, std::vector<bool> &visited
 
 // non recursive or iterative dfs traversal:
 void dfs(int &V, int &E, std::vector<std::vector<int>> &edges) {
-    std::vector<std::vector<int>> adj_list = build_adj_list_und(V, E, edges);
+    std::vector<std::vector<int>> adj_list = build_adj_list_dir(V, E, edges);
     std::vector<int> index(V, 0);
     std::vector<bool> visited(V, false);
     std::vector<int> res;
@@ -85,8 +85,6 @@ void dfs(int &V, int &E, std::vector<std::vector<int>> &edges) {
         std::cout << "(" << i << ", " << parent[i] << ") | ";
     }
     std::cout << std::endl;
-
-    std::reverse(res.begin(), res.end());
 
     std::cout << "dfs traversal array: " << std::endl;
     for(auto u: res) 
@@ -108,7 +106,7 @@ int main(int argc, char **argv) {
     dfs(V, E, edges);
 }
 
-// TODO: need to do for directed graph.
+
 // input:-
 // 8 10
 // 0 2
